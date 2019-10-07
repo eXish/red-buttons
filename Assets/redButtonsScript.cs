@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
 using KModkit;
@@ -11,7 +9,7 @@ public class redButtonsScript : MonoBehaviour
 	public KMBombInfo bomb;
 	
 	public KMSelectable[] buttons;
-	
+
 	private int digit = 0;
 	public TextMesh DisplayedDigit;
 	public TextMesh buttonText0;
@@ -23,7 +21,7 @@ public class redButtonsScript : MonoBehaviour
 	private int stage = 0;
 	private int final = 0;
 
-	private bool wrong;
+	private bool wrong = false;
 	
 	// Logging
 	static int moduleIdCounter = 1;
@@ -38,7 +36,6 @@ public class redButtonsScript : MonoBehaviour
 			KMSelectable pressedButton = button;
 			button.OnInteract += delegate () { ButtonPress(pressedButton); return false; };
 		}
-
 	}
 
 	void Start()
@@ -49,11 +46,9 @@ public class redButtonsScript : MonoBehaviour
 
 	void PickRandomDigit()
 	{
-		{
-		digit = UnityEngine.Random.Range(0,10);
-		Debug.LogFormat("[Red Buttons #{0}] the displayed digit is {1}", moduleId, digit);
-		DisplayedDigit.text = digit.ToString();
-		}
+	digit = UnityEngine.Random.Range(0,10);
+	Debug.LogFormat("[Red Buttons #{0}] the displayed digit is {1}", moduleId, digit);
+	DisplayedDigit.text = digit.ToString();
 	}
 
 	void CalculateAnswer()
@@ -82,7 +77,7 @@ public class redButtonsScript : MonoBehaviour
 			wrong = true;
 		}
 		stage++;
-		if(stage == 10)
+		if(stage == 100)
 		{
 			stage = 0;
 			if(wrong)
@@ -102,6 +97,7 @@ public class redButtonsScript : MonoBehaviour
 			Start();
 		}
 	}
+
 	IEnumerator Solve()
 	{
 		DisplayedDigit.text = "GG OK!";
